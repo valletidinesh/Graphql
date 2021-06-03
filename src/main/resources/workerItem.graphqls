@@ -1,0 +1,22 @@
+type Worker{
+	personNumber:String!
+	dateOfBirth:String!
+	workRelationships:[WorkRelationshipItems]
+}
+
+type WorkRelationshipItems{
+	workType :String
+	gradeCode:String
+	location:Location
+}
+
+type Location{
+	locationId: String!
+	country:String!
+	postalCode:String
+}
+
+type Query{
+	getWorkerById(personNumber:String!):Worker
+	getLocationById(locationId:String!):Location
+}
