@@ -51,9 +51,11 @@ public class GraphqlProvider {
 	private RuntimeWiring buildWiring() {
 		// TODO Auto-generated method stub
 		return RuntimeWiring.newRuntimeWiring()
-				.type(TypeRuntimeWiring.newTypeWiring("Query").dataFetcher("getWorkerById", ws.getWorkerById()))
+				.type(TypeRuntimeWiring.newTypeWiring("Query")
+						.dataFetcher("getWorkerById", ws.getWorkerById())
+						.dataFetcher("getWorkers", ws.getWorkers()))
 				.type(TypeRuntimeWiring.newTypeWiring("WorkRelationshipItems").dataFetcher("location", ws.getLocation()))
-				
+				.type(TypeRuntimeWiring.newTypeWiring("Worker").dataFetcher("workRelationships", ws.getWorkerRelationship()))
 				.build();
 			
 	}

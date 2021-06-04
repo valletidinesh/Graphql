@@ -9,7 +9,7 @@ public class Worker {
 
 	
 	public Worker(String personNumber, String dateOfBirth, List<WorkRelationships> workRelationships) {
-		super();
+		
 		this.personNumber = personNumber;
 		this.dateOfBirth = dateOfBirth;
 		this.setWorkRelationships(workRelationships);
