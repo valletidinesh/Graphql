@@ -50,13 +50,13 @@ public class WorkerService {
 					"query{\r\n" + "getWorkers{\r\n" + "  personNumber\r\n" + "  dateOfBirth\r\n"
 							+ "  workRelationships{\r\n" + "    gradeCode\r\n" + "    location{\r\n"
 							+ "      locationId\r\n" + "      country\r\n" + "    }\r\n" + "  }\r\n" + "}\r\n" + "}");
-			put("consumerD", "query($personNumber:String!,$country:String){\r\n"
+			put("consumerD", "query($personNumber:String!,$country:[String]){\r\n"
 					+ "getWorkerById(personNumber:$personNumber,country:$country){\r\n" + "  dateOfBirth\r\n"
 					+ "  personNumber\r\n" + "  workRelationships{\r\n" + "    location{\r\n" + "      locationId\r\n"
 					+ "      country\r\n" + "    }\r\n" + "    \r\n" + "   \r\n" + "  }\r\n" + "}\r\n" + "}");
 		}
 	};
-	private static String country;
+	private static List<String> country;
 
 	public String getQueryByConsumer(String consumer) {
 		return consumers.get(consumer);
@@ -82,14 +82,13 @@ public class WorkerService {
 
 	public DataFetcher<?> getWorkerRelationship(){
 		return DataFetchingEnvironment->{
-			System.out.println(country);
 			Worker wr = (Worker) DataFetchingEnvironment.getSource();
 			List<WorkRelationships> workRelationships = wr.getWorkRelationships();
 			if (country!= null) {
 			List<WorkRelationships> res = new ArrayList<>();
 			for(WorkRelationships wr1:workRelationships) {
 				Location loc = locs.get(wr1.getLocationId());
-				if(loc.getCountry().equals(country)) {
+				if(country.contains(loc.getCountry())) {
 					res.add(wr1);
 				}
 			}

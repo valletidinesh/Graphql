@@ -17,6 +17,6 @@ type Location{
 }
 
 type Query{
-	getWorkerById(personNumber:String!,country:String):Worker
+	getWorkerById(personNumber:String!,country:[String]):Worker
 	getWorkers:[Worker]
 }

@@ -1,6 +1,7 @@
 package com.learn;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,21 +37,16 @@ public class GraphqlController {
 	public Map<String,Object> getRequest(@RequestHeader("developer_ap")String consumer) {
 		String query = wsi.getQueryByConsumer(consumer);
 		Map<String,Object> res = executeGraphqlQuery(query);
-		/*
-		 * System.out.println(query); System.out.println(res);
-		 */
 		return res;
 	}
 	
 	@RequestMapping(value = "/workers/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> getWorker(@RequestHeader("developer_ap")String consumer,@PathVariable("id")String id,@RequestParam(value = "country",required = false)String country) {
+	public Map<String, Object> getWorker(@RequestHeader("developer_ap")String consumer,@PathVariable("id")String id,@RequestParam(value = "country",required = false)List<String> country) {
 		String query = wsi.getQueryByConsumer(consumer);
 		Map<String,Object> variables = new LinkedHashMap<String, Object>();
 		variables.put("personNumber", id);
 		variables.put("country", country);
 		Map<String, Object> result = executeGraphqlQueryVariables(query,variables);
-		System.out.println(variables);
-		System.out.println(id);
 		return result;
 		
 	}
